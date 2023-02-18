@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 load_dotenv()
 import os
+import json
 
 
 app = Flask(__name__)
@@ -13,18 +14,12 @@ if(os.getenv("EMAIL") is None or os.getenv("PASSWORD") is None):
 
 @app.route("/chatgpt/", methods=["POST"])
 def chat():
-    data = request.get_json()
-    if data is None:
-        return jsonify({"error": "No data provided"}), 400
-    if data["text"] is None:
-        return jsonify({"error": "No text provided"}), 400
-    if data["text"] == "":
-        return jsonify({"error": "Empty text provided"}), 400
-    res = chatgpt(data["text"], data["conversation_id"])
-    return jsonify({
-        "response": res[0],
-        "conversation_id": res[1]
-    }), 200
+    data_ = request.get_json()
+    data = json.loads(data_)
+    if data.gets("text") is None:
+        return jsonify({"error": "Please provide text"})
+    res = chatgpt(data.gets("text"), data.gets("conversation_id"))
+    return jsonify({"text": res[0], "conversation_id": res[1]})
 
 
 
