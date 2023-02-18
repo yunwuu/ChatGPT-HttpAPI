@@ -16,7 +16,9 @@ if(os.getenv("EMAIL") is None or os.getenv("PASSWORD") is None):
 def chat():
     data = request.get_json()
     if data.get("text") is None:
-        return jsonify({"error": "Please provide text"})
+        err_resp = Response("Please provide a text to chat with")
+        err_resp.headers['Access-Control-Allow-Origin'] = '*'
+        return err_resp
     res = chatgpt(data.get("text"), data.get("conversation_id"))
     response = Response(res[0])
     response.headers['conversation_id'] = res[1]
