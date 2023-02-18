@@ -16,11 +16,11 @@ def chat():
     data = request.get_json()
     if data is None:
         return jsonify({"error": "No data provided"}), 400
-    if data.text is None:
+    if data["text"] is None:
         return jsonify({"error": "No text provided"}), 400
-    if data.text == "":
+    if data["text"] == "":
         return jsonify({"error": "Empty text provided"}), 400
-    res = chatgpt(data.text, data.conversation_id)
+    res = chatgpt(data["text"], data["conversation_id"])
     return jsonify({
         "response": res[0],
         "conversation_id": res[1]
