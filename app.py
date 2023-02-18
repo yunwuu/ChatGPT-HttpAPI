@@ -14,8 +14,7 @@ if(os.getenv("EMAIL") is None or os.getenv("PASSWORD") is None):
 
 @app.route("/chatgpt/", methods=["POST"])
 def chat():
-    data_ = request.get_json()
-    data = json.loads(data_)
+    data = request.get_json()
     if data.gets("text") is None:
         return jsonify({"error": "Please provide text"})
     res = chatgpt(data.gets("text"), data.gets("conversation_id"))
