@@ -20,7 +20,6 @@ def chat():
     res = chatgpt(data.get("text"), data.get("conversation_id"))
     response = Response(res[0])
     response.headers['conversation_id'] = res[1]
-    response.headers["Content-Type"] = "application/json"
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
