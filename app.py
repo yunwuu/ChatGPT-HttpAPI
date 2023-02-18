@@ -29,9 +29,7 @@ def chatgpt(str, cid=None):
     })
     prev_text = ""
     result = ""
-    for data in chatbot.ask(
-        str,
-    ):
+    for data in chatbot.ask(str, cid):
         message = data["message"][len(prev_text) :]
         result = result + message
         prev_text = data["message"]
