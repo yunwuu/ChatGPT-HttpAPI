@@ -18,7 +18,8 @@ def chat():
     if data.get("text") is None:
         return jsonify({"error": "Please provide text"})
     res = chatgpt(data.get("text"), data.get("conversation_id"))
-    response = Response(jsonify({"text": res[0], "conversation_id": res[1]}))
+    response = Response(res[0])
+    response.headers['conversation_id'] = res[1]
     response.headers["Content-Type"] = "application/json"
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
