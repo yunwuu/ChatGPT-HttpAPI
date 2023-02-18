@@ -1,0 +1,3 @@
+revChatGPT
+python-dotenv
+flask
