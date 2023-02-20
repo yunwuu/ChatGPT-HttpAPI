@@ -35,10 +35,17 @@ def chat():
 
 
 def chatgpt(str, cid=None):
-    chatbot = Chatbot(config={
-      "email": os.getenv("EMAIL"),
-      "password": os.getenv("PASSWORD")
-    })
+    if cid is None:
+        chatbot = Chatbot(config={
+        "email": os.getenv("EMAIL"),
+        "password": os.getenv("PASSWORD")
+        })
+    else:
+        chatbot = Chatbot(config={
+        "email": os.getenv("EMAIL"),
+        "password": os.getenv("PASSWORD"),
+        "conversation_id": cid
+        })
     prev_text = ""
     result = ""
     for data in chatbot.ask(str, cid):
